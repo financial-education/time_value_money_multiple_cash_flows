@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-08-02 Sun 21:43 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Valuing Contracts with Multiple Cash Flows</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Matt Brigida, Ph.D." />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Valuing Contracts with Multiple Cash Flows</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org329e168">1. Annuities</a></li>
+<li><a href="#org8d7b82a">2. The Present Value of an Annuity</a>
+<ul>
+<li><a href="#orgbd28029">2.1. PV of an Annuity Calculator</a></li>
+<li><a href="#org2b73a18">2.2. Python calculation</a></li>
+</ul>
+</li>
+<li><a href="#org7915d09">3. Applications of the PV of an Annuity</a>
+<ul>
+<li><a href="#orgac92f87">3.1. Cash Flow Per Period in an Annuity Calculator</a></li>
+<li><a href="#org7e08a72">3.2. Python calculation</a></li>
+</ul>
+</li>
+<li><a href="#org4ee28b7">4. The Future Value (FV) of an Annuity</a>
+<ul>
+<li><a href="#orgd2eb83b">4.1. C++ Calculation</a></li>
+</ul>
+</li>
+<li><a href="#orge27f90c">5. Applications of the FV of an Annuity</a></li>
+<li><a href="#orgc5acc88">6. Future Value of an Annuity Calculator</a></li>
+<li><a href="#orgd72884f">7. A Growing Annuity</a></li>
+<li><a href="#org877602a">8. PV of a Growing Annuity</a></li>
+<li><a href="#org86fb62c">9. </a></li>
+<li><a href="#org30ec63b">10. Perpetuity</a></li>
+<li><a href="#orgb6a490f">11. Applications of the Perpetuity</a></li>
+<li><a href="#org146812f">12. A Growing Perpetuity</a></li>
+<li><a href="#orge839dd6">13. Applications of the Growing Perpetuity</a></li>
+<li><a href="#org186fca1">14. Irregular Cash Flows</a></li>
+</ul>
+</div>
+</div>
+<p>
+In this presentation, we'll look at the valuation of contracts that are comprised of multiple cash flows. We'll cover the following:
+</p>
+
+<ul class="org-ul">
+<li>Annuities</li>
+<li>Perpetuities</li>
+<li>Growing Annuities and Perpetuities</li>
+<li>Irregular Cash Flows</li>
+</ul>
+
+<div id="outline-container-org329e168" class="outline-2">
+<h2 id="org329e168"><span class="section-number-2">1</span> Annuities</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+An <b><b>annuity</b></b> is a contract which pays a fixed amount at the end of each period for a fixed number of periods.  Many common financial contracts are annuities, such as fixed-rate mortgages and auto loans.  If the payments are in the beginning of a period (such as renting an apartment) the contract is known as an <b>annuity due</b>.
+</p>
+
+<p>
+The annuity is defined by its: 
+</p>
+
+<ul class="org-ul">
+<li>\(r\) rate per period</li>
+<li>\(n\) number of periods</li>
+<li>\(C\) cash flow per period</li>
+</ul>
+
+<p>
+It is important that each quantity you use is over the same period, i.e. don't use a yearly rate with monthly payments.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org8d7b82a" class="outline-2">
+<h2 id="org8d7b82a"><span class="section-number-2">2</span> The Present Value of an Annuity</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+To calculate the present value (PV) of an annuity, we can simply discount each payment individually, to the same period, and sum them:
+</p>
+
+<p>
+\(PV_0 = \frac{C}{(1+r)^1} + \frac{C}{(1+r)^2} + ... + \frac{C}{(1+r)^n}\)
+</p>
+
+<p>
+Note the PV is at time 0 (one period before the first payment in time 1). This calculation is very easy to do in a spreadsheet. But annuities have been around for a long time, so historically we have used a simplified version of the above equation. Specifically, the above is equal to:  
+</p>
+
+<p>
+\(PV_0 = C(\frac{1 - \frac{1}{(1+r)^n}}{r})\)
+</p>
+</div>
+
+
+<div id="outline-container-orgbd28029" class="outline-3">
+<h3 id="orgbd28029"><span class="section-number-3">2.1</span> PV of an Annuity Calculator</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<script>
+
+var calculate = function() {
+
+  var num = Number(document.getElementById("num").value);
+  var rate = Number(document.getElementById("rate").value);
+  var c = Number(document.getElementById("c").value);
+
+  var pva = c * (1 - 1 / Math.pow((1 + rate), num)) / rate;
+  
+  document.getElementById("out_pva").innerHTML = pva.toFixed(2);
+
+}
+
+</script>
+
+<body class="all">
+  <h3>
+    Future Value of a Single Cash Flow Calculator
+  </h3>
+
+  <div class="row">
+
+    <div class="column">
+      <table style="width:100%">
+        <tr>
+          <th align="left">Cash Flow per Period:</th>
+          <th><input id="c" value="100" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Number of Periods:</th>
+          <th><input id="num" value="10" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Rate Per Period:</th>
+          <th><input id="rate" value="0.07" style="width: 50px"></th>
+        </tr>
+      </table>
+      <button onclick="calculate()">
+        Calculate.
+      </button>
+    </div>
+
+    <div class="column">
+    <p><b>Present Value of the Annuity: <span id="out_pva"></span></b></p>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <br>
+</body>
+</div>
+</div>
+
+
+<div id="outline-container-org2b73a18" class="outline-3">
+<h3 id="org2b73a18"><span class="section-number-3">2.2</span> Python calculation</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900;">def</span> <span style="color: #b58900;">present_value_annuity</span><span style="color: #839496;">(</span>C, rate, periods<span style="color: #839496;">)</span>:
+<span style="color: #586e75; background-color: #073642;"> </span>   <span style="color: #859900;">return</span> C * <span style="color: #839496;">(</span>1 - 1 / <span style="color: #6c71c4;">pow</span><span style="color: #2aa198;">(</span>1 + rate, periods<span style="color: #2aa198;">)</span><span style="color: #839496;">)</span> / rate
+
+<span style="color: #6c71c4;">C</span> = 100
+<span style="color: #6c71c4;">rate</span> = 0.07
+<span style="color: #6c71c4;">periods</span> = 10
+
+<span style="color: #859900;">print</span><span style="color: #839496;">(</span><span style="color: #6c71c4;">round</span><span style="color: #2aa198;">(</span>present_value_annuity<span style="color: #b58900;">(</span>C, rate, periods<span style="color: #b58900;">)</span>, 2<span style="color: #2aa198;">)</span><span style="color: #839496;">)</span>
+
+</pre>
+</div>
+
+<pre class="example">
+702.36
+
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org7915d09" class="outline-2">
+<h2 id="org7915d09"><span class="section-number-2">3</span> Applications of the PV of an Annuity</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+You can use the above formula to find your monthly mortgage payment.  Say you are going to borrow \$150,000 to buy a house, and your 30-year mortgage rate is 5\%.  We can plug these values into the formula:
+</p>
+
+<p>
+$\\(150,000 = C(\frac{1 - \frac{1}{(1 + \frac{5\%}{12})^{12(30)}}}{\frac{5\%}{12}})\) 
+</p>
+
+<p>
+rearranging for \(C\) (the monthly payment) gives:
+</p>
+
+<p>
+$C = \\(805.23\) 
+</p>
+</div>
+
+<div id="outline-container-orgac92f87" class="outline-3">
+<h3 id="orgac92f87"><span class="section-number-3">3.1</span> Cash Flow Per Period in an Annuity Calculator</h3>
+<div class="outline-text-3" id="text-3-1">
+
+<script>
+
+var calculate2 = function() {
+
+  var periods2 = Number(document.getElementById("periods2").value);
+  var rate2 = Number(document.getElementById("rate2").value);
+  var pva2 = Number(document.getElementById("pva2").value);
+
+  var c2 = (pva2 * rate2) / (1 - 1 / Math.pow(1 + rate2, periods2));
+  
+  document.getElementById("out_c2").innerHTML = c2.toFixed(2);
+
+}
+
+</script>
+
+<body class="all">
+  <h3>
+    Cash Flow in an Annuity Calculator
+  </h3>
+
+  <div class="row">
+
+    <div class="column">
+      <table style="width:100%">
+        <tr>
+          <th align="left">Present Value of the Annuity:</th>
+          <th><input id="pva2" value="700" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Number of Periods:</th>
+          <th><input id="periods2" value="10" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Rate Per Period:</th>
+          <th><input id="rate2" value="0.07" style="width: 50px"></th>
+        </tr>
+      </table>
+      <button onclick="calculate2()">
+        Calculate.
+      </button>
+    </div>
+
+    <div class="column">
+    <p><b>Cash Flow per Period: <span id="out_c2"></span></b></p>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <br>
+</body>
+</div>
+</div>
+
+
+<div id="outline-container-org7e08a72" class="outline-3">
+<h3 id="org7e08a72"><span class="section-number-3">3.2</span> Python calculation</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900;">def</span> <span style="color: #b58900;">cash_flow_per_period</span><span style="color: #839496;">(</span>pva, rate, periods<span style="color: #839496;">)</span>:
+<span style="color: #586e75; background-color: #073642;"> </span>   <span style="color: #859900;">return</span> C * <span style="color: #839496;">(</span>1 - 1 / <span style="color: #6c71c4;">pow</span><span style="color: #2aa198;">(</span>1 + rate, periods<span style="color: #2aa198;">)</span><span style="color: #839496;">)</span> / rate
+
+<span style="color: #6c71c4;">C</span> = 100
+<span style="color: #6c71c4;">rate</span> = 0.07
+<span style="color: #6c71c4;">periods</span> = 10
+
+<span style="color: #859900;">print</span><span style="color: #839496;">(</span><span style="color: #6c71c4;">round</span><span style="color: #2aa198;">(</span>present_value_annuity<span style="color: #b58900;">(</span>C, rate, periods<span style="color: #b58900;">)</span>, 2<span style="color: #2aa198;">)</span><span style="color: #839496;">)</span>
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<div id="outline-container-org4ee28b7" class="outline-2">
+<h2 id="org4ee28b7"><span class="section-number-2">4</span> The Future Value (FV) of an Annuity</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+We can instead push each cash flow into the last period and find the total value of the payments then.  This is the future value (FV) of the annuity.
+</p>
+
+<p>
+The FV at the last period of the annuity (time \(n\)) is simply:
+</p>
+
+<p>
+\(FV_n = C(1+r)^{n-1} + C(1+r)^{n-2} + ... + C\)
+</p>
+
+<p>
+This is equivalent to:
+</p>
+
+<p>
+\(FV_n = C\left(\frac{(1 + r)^n - 1}{r}\right)\)
+</p>
+</div>
+
+<div id="outline-container-orgd2eb83b" class="outline-3">
+<h3 id="orgd2eb83b"><span class="section-number-3">4.1</span> C++ Calculation</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+<pre class="src src-C++"><span style="color: #d33682;">#include</span> <span style="color: #2aa198;">&lt;cmath&gt;</span>
+<span style="color: #d33682;">#include</span> <span style="color: #2aa198;">&lt;iostream&gt;</span>
+<span style="color: #859900;">using</span> <span style="color: #859900;">namespace</span> <span style="color: #268bd2;">std</span>;
+
+<span style="color: #268bd2;">double</span> <span style="color: #b58900;">future_value_annuity</span>(<span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">c</span>, <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">rate</span>, <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">periods</span>){
+<span style="color: #859900;">return</span>(c * (pow((1 + rate), periods) - 1) / rate);
+}
+
+<span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">C</span> = 100;
+<span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">rate</span> = 0.07;
+<span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">periods</span> = 10;
+
+<span style="color: #268bd2;">int</span> <span style="color: #b58900;">main</span>(){
+<span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">ans</span> = future_value_annuity(C, rate, periods);
+cout &lt;&lt; ans;
+ <span style="color: #859900;">return</span> 0;
+}
+</pre>
+</div>
+
+<pre class="example">
+1381.64
+
+</pre>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orge27f90c" class="outline-2">
+<h2 id="orge27f90c"><span class="section-number-2">5</span> Applications of the FV of an Annuity</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Calculating the FV of an annuity is most often used in retirement calculations.  For example, if you put \$300 per month into an account earning 4% annual interest, how much money would you have in the account in 30 years?  
+</p>
+
+<p>
+You will have $\frac{\$300(1 + \frac{4\%}{12})<sup>30(12)</sup>}{\frac{4\%}{12}} = \\(298,214.80\)
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgc5acc88" class="outline-2">
+<h2 id="orgc5acc88"><span class="section-number-2">6</span> Future Value of an Annuity Calculator</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#{{{
+inputPanel(
+	   sliderInput("rate.fva", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
+	   sliderInput("periods.fva", label = "Number of Periods", min = 1, max = 50, step = 1, value = 10),
+	   sliderInput("cash.fva", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100)
+	   )
+</p>
+
+<p>
+renderPlot({
+cashFlows &lt;- rep(input$cash.fva, input$periods.fva)
+## again, not using the FV of an annuity formula -&#x2014;
+fv &lt;- sum( cashFlows * ((1 + input$rate.fva) ^ {1:input$periods.fva}) )
+  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
+  text(x = 0.5, y = 0.5, labels = paste(round(fv, 2)), cex = 5)
+      text(x = 0.5, y = 0.95, labels = paste("FV of an Annuity"), cex = 2)
+})
+#}}}
+```
+</p>
+
+
+<p>
+&lt;!&#x2013; [Should we put a calculator which will return <b>FV</b>, <b>PV</b>, <b>r</b>, and <b>n</b> given the other inputs?] &#x2013;&gt;
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgd72884f" class="outline-2">
+<h2 id="orgd72884f"><span class="section-number-2">7</span> A Growing Annuity</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+A <b><b>growing annuity</b></b> is a contract which pays a constantly increasing amount at the end of each period for a set number of periods.
+</p>
+
+<ul class="org-ul">
+<li>For example, the following is a growing annuity:  a contract which pays $\\(100\) in the next period, and $\\(100(1 + r)^i\) in period \(i\), where \(i\) ranges from 1 to the final period \(n\), and \(r\) is the growth rate per period.  The value of a growing annuity at time \(0\) is:</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org877602a" class="outline-2">
+<h2 id="org877602a"><span class="section-number-2">8</span> PV of a Growing Annuity</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+The PV of a growing annuity is:
+</p>
+
+<p>
+\(PV_0 = \frac{C}{(1+r)} + \frac{C(1+g)}{(1+r)^2} + ... + \frac{C(1+g)^{n-1}}{(1+r)^n}\)
+</p>
+
+<p>
+which can simplified to:
+</p>
+
+<p>
+\(PV = C(\frac{1-(\frac{1+g}{1+r})^n}{r - g})\)
+</p>
+
+<p>
+Feel free to try the calculation, and check your answer on the calculator on the next slide.
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org86fb62c" class="outline-2">
+<h2 id="org86fb62c"><span class="section-number-2">9</span> </h2>
+<div class="outline-text-2" id="text-9">
+<p>
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### PV of a Growing Annuity -&#x2014;
+#{{{
+sidebarLayout(
+	      sidebarPanel(
+			   inputPanel(
+				      sliderInput("rate.pvga", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
+				      sliderInput("periods.pvga", label = "Number of Periods", min = 1, max = 50, step = 1, value = 10),
+				      sliderInput("cash.pvga", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100),
+				      sliderInput("cash.gr.pvga", label = "Cash Flow Growth Rate per Period", min = 0, max = .2, step = .01, value = .02)
+				      )
+			   ),
+</p>
+
+<p>
+	      mainPanel(
+			renderPlot({
+			  cashFlows &lt;- rep(input$cash.pvga, input$periods.pvga) * (1 + input$cash.gr.pvga)<sup>1:input$periods.pvga</sup>
+			  ## again, not using the PV of an annuity formula -&#x2014;
+			  pvga &lt;- sum( cashFlows / ((1 + input$rate.pvga) ^ {1:input$periods.pvga}) )
+			  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
+			  text(x = 0.5, y = 0.5, labels = paste(round(pvga, 2)), cex = 5)
+      text(x = 0.5, y = 0.95, labels = paste("PV of a Growing Annuity"), cex = 2)
+			})
+			)
+	      )
+#}}}
+```
+</p>
+
+<p>
+##  FV of a Growing Annuity
+</p>
+
+<p>
+The FV of a growing annuity (in the last period \(n\)) is:
+</p>
+
+<p>
+\(FV_n = C(1 + r)^{n-1} + C(1+g)(1+r)^{n-2} + ... + C(1+g)^{n-1}\)
+</p>
+
+<p>
+which can be simplified to:
+</p>
+
+<p>
+\(FV_n = C(\frac{(1+r)^n - (1+g)^n}{r - g})\)
+</p>
+
+<p>
+where \(r \neq g\).
+</p>
+
+<p>
+Again, you can try the calculation, and check your answer on the calculator on the next slide.
+</p>
+
+
+
+
+
+
+<p>
+*
+</p>
+
+<p>
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### FV of a Growing Annuity -&#x2014;
+#{{{
+sidebarLayout(
+	      sidebarPanel(
+inputPanel(
+	   sliderInput("rate.fvga", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
+	   sliderInput("periods.fvga", label = "Number of Periods", min = 1, max = 50, step = 1, value = 10),
+	   sliderInput("cash.fvga", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100),
+	   sliderInput("cash.gr.fvga", label = "Cash Flow Growth Rate per Period", min = 0, max = .2, step = .01, value = .02)
+	   )
+),
+</p>
+
+<p>
+			   mainPanel(
+renderPlot({
+    cashFlows &lt;- rep(input$cash.fvga, input$periods.fvga) * (1 + input$cash.gr.fvga)<sup>1:input$periods.fvga</sup>
+## again, not using the FV of an annuity formula -&#x2014;
+    fvga &lt;- sum( cashFlows * ((1 + input$rate.fvga) ^ {1:input$periods.fvga}) )
+    plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
+    text(x = 0.5, y = 0.5, labels = paste(round(fvga, 2)), cex = 5)
+    text(x = 0.5, y = 0.95, labels = paste("FV of a Growing Annuity"), cex = 2)
+})
+)
+			   )
+#}}}
+```
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-org30ec63b" class="outline-2">
+<h2 id="org30ec63b"><span class="section-number-2">10</span> Perpetuity</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+A <b><b>perpetuity</b></b> is a contract which pays a fixed amount at the end of each period for an infinite number of periods. Despite having an infinite number of payments, the PV is a finite amount (assuming a positive interest rate).  This is because [later payments become negligible](<a href="https://en.wikipedia.org/wiki/Series_(mathematics)">https://en.wikipedia.org/wiki/Series_(mathematics)</a>#Convergent<sub>series</sub>). 
+</p>
+
+<p>
+The present value of a perpetuity is:
+</p>
+
+<p>
+\(PV = \frac{C}{1+r} + \frac{C}{(1+r)^2} + \frac{C}{(1+r)^3} + \ldots =\frac{C}{r}\)
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgb6a490f" class="outline-2">
+<h2 id="orgb6a490f"><span class="section-number-2">11</span> Applications of the Perpetuity</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Likely the best known perpetuity is [preferred stock](<a href="https://en.wikipedia.org/wiki/Preferred_stock">https://en.wikipedia.org/wiki/Preferred_stock</a>).  Preferred stock pays a fixed dividend, unlike common stock whose dividend changes over time.  
+</p>
+
+<p>
+Say ABC company's preferred stock pays a fixed dividend of \$7 per year every year.  The discount rate is 10%.  Then the preferred stock is worth:
+</p>
+
+<p>
+$PV = \frac{\$7}{0.10} = \\(70\)
+</p>
+
+
+
+<p>
+*
+</p>
+
+
+<p>
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### PV of a Perpetuity -&#x2014;
+#{{{
+inputPanel(
+	   sliderInput("rate.pvp", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
+	   sliderInput("cash.pvp", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100)
+	   )
+</p>
+
+<p>
+renderPlot({
+  pvp &lt;- input$cash.pvp / input$rate.pvp
+  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
+  text(x = 0.5, y = 0.5, labels = paste(round(pvp, 2)), cex = 5)
+      text(x = 0.5, y = 0.95, labels = paste("PV of a Perpetuity"), cex = 2)
+})
+#}}}
+```
+</p>
+</div>
+</div>
+
+
+
+
+
+
+<div id="outline-container-org146812f" class="outline-2">
+<h2 id="org146812f"><span class="section-number-2">12</span> A Growing Perpetuity</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+A <b><b>growing perpetuity</b></b> is a contract which pays a constantly increasing amount at the end of each period for an infinite number of periods.  That is, if the first payment is $\\(C\), then the following payments are $\\(C(1+g)\), $\\(C(1+g)^2\), &#x2026; off to infinity.
+</p>
+
+<p>
+Assuming \(g < r\) the PV of the growing perpetuity is:
+</p>
+
+<p>
+$PV = \frac{C}{1+r} + \frac{C(1+g)}{(1+r)^2} + \frac{C(1+g)^2}{(1+r)^3} + &#x2026; = \frac{C}{r-g}
+</p>
+
+<p>
+If \(g \geq r\) then then the value is infinite.  
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-orge839dd6" class="outline-2">
+<h2 id="orge839dd6"><span class="section-number-2">13</span> Applications of the Growing Perpetuity</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+Perhaps the most famous application is the [Gordon Growth Model of stock valuation](<a href="https://en.wikipedia.org/wiki/Dividend_discount_model">https://en.wikipedia.org/wiki/Dividend_discount_model</a>).  The model assumes a stock's dividends grow at a constant rate. Since stock is infinitely lived, we can find the PV of the dividends (the stock's value), as the PV of a growing perpetuity.
+</p>
+
+<ul class="org-ul">
+<li>Say XYZ Corp pays yearly dividends, and next year's dividend will be \$5.  XYZ's dividends are expected to grow at 3% in perpetuity, and its discount rate is 7%.  The value of XYZ's stock is:</li>
+</ul>
+
+<p>
+$PV = \frac{\$5}{7% - 3%} = \\(125\)
+</p>
+
+
+
+
+<p>
+*
+</p>
+
+<p>
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### PV of a Growing Perpetuity -&#x2014;
+#{{{
+inputPanel(
+	   sliderInput("rate.pvgp", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
+	   sliderInput("growth.rate.pvgp", label = "CF Growth Rate per Period", min = 0, max = 0.5, step = .01, value = .02),
+	   sliderInput("cash.pvgp", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100)
+	   )
+</p>
+
+<p>
+renderPlot({
+  pvgp &lt;- input$cash.pvgp / (input$rate.pvgp - input$growth.rate.pvgp)
+  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
+  if (input$rate.pvgp &lt;= input\(growth.rate.pvgp) {
+    text(x = 0.5, y = 0.5, labels = paste("Growth Rate must be less than Discount Rate"), cex = 2)
+  } else {
+    text(x = 0.5, y = 0.5, labels = paste("\)", round(pvgp, 2)), cex = 5)
+      text(x = 0.5, y = 0.95, labels = paste("PV of a Growing Perpetuity"), cex = 2)
+  }
+</p>
+
+<p>
+})
+#}}}
+```
+</p>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-org186fca1" class="outline-2">
+<h2 id="org186fca1"><span class="section-number-2">14</span> Irregular Cash Flows</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+A contract with <b><b>Irregular cash flows</b></b> is any contract that has a cash flow structure other than those listed above.
+</p>
+
+<ul class="org-ul">
+<li>As mentioned earlier, annuity formulas allowed computationally easy valuation, and therefore use, of the above contracts.  However present computing power makes valuation of any stream of cash flows very easy.</li>
+
+<li>So the valuation of irregular cash flows can simply be done by applying the formulas for single cash flows to each individual cash flow in the contract.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Matt Brigida, Ph.D.</p>
+<p class="date">Created: 2020-08-02 Sun 21:43</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

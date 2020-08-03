@@ -1,0 +1,492 @@
+#+title: Valuing Contracts with Multiple Cash Flows
+#+author: Matt Brigida, Ph.D.
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+
+In this presentation, we'll look at the valuation of contracts that are comprised of multiple cash flows. We'll cover the following:
+
+- Annuities
+- Perpetuities
+- Growing Annuities and Perpetuities 
+- Irregular Cash Flows
+
+* Annuities
+
+An **annuity** is a contract which pays a fixed amount at the end of each period for a fixed number of periods.  Many common financial contracts are annuities, such as fixed-rate mortgages and auto loans.  If the payments are in the beginning of a period (such as renting an apartment) the contract is known as an *annuity due*.
+
+The annuity is defined by its: 
+
+- $r$ rate per period
+- $n$ number of periods
+- $C$ cash flow per period
+
+It is important that each quantity you use is over the same period, i.e. don't use a yearly rate with monthly payments.
+ 
+
+* The Present Value of an Annuity
+
+To calculate the present value (PV) of an annuity, we can simply discount each payment individually, to the same period, and sum them:
+
+$PV_0 = \frac{C}{(1+r)^1} + \frac{C}{(1+r)^2} + ... + \frac{C}{(1+r)^n}$
+
+Note the PV is at time 0 (one period before the first payment in time 1). This calculation is very easy to do in a spreadsheet. But annuities have been around for a long time, so historically we have used a simplified version of the above equation. Specifically, the above is equal to:  
+
+$PV_0 = C(\frac{1 - \frac{1}{(1+r)^n}}{r})$
+
+
+** PV of an Annuity Calculator
+
+#+BEGIN_EXPORT html
+
+<script>
+
+var calculate = function() {
+
+  var num = Number(document.getElementById("num").value);
+  var rate = Number(document.getElementById("rate").value);
+  var c = Number(document.getElementById("c").value);
+
+  var pva = c * (1 - 1 / Math.pow((1 + rate), num)) / rate;
+  
+  document.getElementById("out_pva").innerHTML = pva.toFixed(2);
+
+}
+
+</script>
+
+<body class="all">
+  <h3>
+    Future Value of a Single Cash Flow Calculator
+  </h3>
+
+  <div class="row">
+
+    <div class="column">
+      <table style="width:100%">
+        <tr>
+          <th align="left">Cash Flow per Period:</th>
+          <th><input id="c" value="100" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Number of Periods:</th>
+          <th><input id="num" value="10" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Rate Per Period:</th>
+          <th><input id="rate" value="0.07" style="width: 50px"></th>
+        </tr>
+      </table>
+      <button onclick="calculate()">
+        Calculate.
+      </button>
+    </div>
+
+    <div class="column">
+    <p><b>Present Value of the Annuity: <span id="out_pva"></span></b></p>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <br>
+</body>
+
+#+END_EXPORT
+
+
+** Python calculation
+
+#+BEGIN_SRC python :results output :exports both
+def present_value_annuity(C, rate, periods):
+    return C * (1 - 1 / pow(1 + rate, periods)) / rate
+
+C = 100
+rate = 0.07
+periods = 10
+
+print(round(present_value_annuity(C, rate, periods), 2))
+
+#+END_SRC
+
+#+RESULTS:
+: 702.36
+
+
+* Applications of the PV of an Annuity
+
+You can use the above formula to find your monthly mortgage payment.  Say you are going to borrow \$150,000 to buy a house, and your 30-year mortgage rate is 5\%.  We can plug these values into the formula:
+
+$\$150,000 = C(\frac{1 - \frac{1}{(1 + \frac{5\%}{12})^{12(30)}}}{\frac{5\%}{12}})$ 
+
+rearranging for $C$ (the monthly payment) gives:
+
+$C = \$805.23$ 
+
+** Cash Flow Per Period in an Annuity Calculator
+
+#+BEGIN_EXPORT html
+
+<script>
+
+var calculate2 = function() {
+
+  var periods2 = Number(document.getElementById("periods2").value);
+  var rate2 = Number(document.getElementById("rate2").value);
+  var pva2 = Number(document.getElementById("pva2").value);
+
+  var c2 = (pva2 * rate2) / (1 - 1 / Math.pow(1 + rate2, periods2));
+  
+  document.getElementById("out_c2").innerHTML = c2.toFixed(2);
+
+}
+
+</script>
+
+<body class="all">
+  <h3>
+    Cash Flow in an Annuity Calculator
+  </h3>
+
+  <div class="row">
+
+    <div class="column">
+      <table style="width:100%">
+        <tr>
+          <th align="left">Present Value of the Annuity:</th>
+          <th><input id="pva2" value="700" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Number of Periods:</th>
+          <th><input id="periods2" value="10" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Rate Per Period:</th>
+          <th><input id="rate2" value="0.07" style="width: 50px"></th>
+        </tr>
+      </table>
+      <button onclick="calculate2()">
+        Calculate.
+      </button>
+    </div>
+
+    <div class="column">
+    <p><b>Cash Flow per Period: <span id="out_c2"></span></b></p>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <br>
+</body>
+
+#+END_EXPORT
+
+
+** Python calculation
+
+#+BEGIN_SRC python :results output :exports both
+def cash_flow_per_period(pva, rate, periods):
+    return C * (1 - 1 / pow(1 + rate, periods)) / rate
+
+C = 100
+rate = 0.07
+periods = 10
+
+print(round(present_value_annuity(C, rate, periods), 2))
+
+#+END_SRC
+
+#+RESULTS:
+: 702.36
+
+
+
+ 
+
+
+ 
+* The Future Value (FV) of an Annuity
+
+We can instead push each cash flow into the last period and find the total value of the payments then.  This is the future value (FV) of the annuity.
+
+The FV at the last period of the annuity (time $n$) is simply:
+
+$FV_n = C(1+r)^{n-1} + C(1+r)^{n-2} + ... + C$
+
+This is equivalent to:
+
+$FV_n = C\left(\frac{(1 + r)^n - 1}{r}\right)$
+
+** C++ Calculation
+
+#+BEGIN_SRC C++ :results output :exports both
+  #include <cmath>
+  #include <iostream>
+  using namespace std;
+
+  double future_value_annuity(double c, double rate, double periods){
+  return(c * (pow((1 + rate), periods) - 1) / rate);
+  }
+
+  double C = 100;
+  double rate = 0.07;
+  double periods = 10;
+
+  int main(){
+  double ans = future_value_annuity(C, rate, periods);
+  cout << ans;
+   return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+: 1381.64
+
+
+ 
+
+* Applications of the FV of an Annuity
+
+Calculating the FV of an annuity is most often used in retirement calculations.  For example, if you put \$300 per month into an account earning 4% annual interest, how much money would you have in the account in 30 years?  
+
+You will have $\frac{\$300(1 + \frac{4\%}{12})^{30(12)}}{\frac{4\%}{12}} = \$298,214.80$
+
+ 
+
+
+* Future Value of an Annuity Calculator
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#{{{
+inputPanel(
+	   sliderInput("rate.fva", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
+	   sliderInput("periods.fva", label = "Number of Periods", min = 1, max = 50, step = 1, value = 10),
+	   sliderInput("cash.fva", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100)
+	   )
+
+renderPlot({
+cashFlows <- rep(input$cash.fva, input$periods.fva)
+## again, not using the FV of an annuity formula ----
+fv <- sum( cashFlows * ((1 + input$rate.fva) ^ {1:input$periods.fva}) )
+  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
+  text(x = 0.5, y = 0.5, labels = paste(round(fv, 2)), cex = 5)
+      text(x = 0.5, y = 0.95, labels = paste("FV of an Annuity"), cex = 2)
+})
+#}}}
+```
+
+
+<!-- [Should we put a calculator which will return *FV*, *PV*, *r*, and *n* given the other inputs?] -->
+
+ 
+
+* A Growing Annuity
+
+A **growing annuity** is a contract which pays a constantly increasing amount at the end of each period for a set number of periods.
+
+-  For example, the following is a growing annuity:  a contract which pays $\$100$ in the next period, and $\$100(1 + r)^i$ in period $i$, where $i$ ranges from 1 to the final period $n$, and $r$ is the growth rate per period.  The value of a growing annuity at time $0$ is:
+
+
+
+*  PV of a Growing Annuity
+
+The PV of a growing annuity is:
+
+$PV_0 = \frac{C}{(1+r)} + \frac{C(1+g)}{(1+r)^2} + ... + \frac{C(1+g)^{n-1}}{(1+r)^n}$
+
+which can simplified to:
+
+$PV = C(\frac{1-(\frac{1+g}{1+r})^n}{r - g})$
+
+Feel free to try the calculation, and check your answer on the calculator on the next slide.
+
+
+
+* 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### PV of a Growing Annuity ----
+#{{{
+sidebarLayout(
+	      sidebarPanel(
+			   inputPanel(
+				      sliderInput("rate.pvga", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
+				      sliderInput("periods.pvga", label = "Number of Periods", min = 1, max = 50, step = 1, value = 10),
+				      sliderInput("cash.pvga", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100),
+				      sliderInput("cash.gr.pvga", label = "Cash Flow Growth Rate per Period", min = 0, max = .2, step = .01, value = .02)
+				      )
+			   ),
+
+	      mainPanel(
+			renderPlot({
+			  cashFlows <- rep(input$cash.pvga, input$periods.pvga) * (1 + input$cash.gr.pvga)^{1:input$periods.pvga}
+			  ## again, not using the PV of an annuity formula ----
+			  pvga <- sum( cashFlows / ((1 + input$rate.pvga) ^ {1:input$periods.pvga}) )
+			  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
+			  text(x = 0.5, y = 0.5, labels = paste(round(pvga, 2)), cex = 5)
+      text(x = 0.5, y = 0.95, labels = paste("PV of a Growing Annuity"), cex = 2)
+			})
+			)
+	      )
+#}}}
+```
+
+##  FV of a Growing Annuity
+
+The FV of a growing annuity (in the last period $n$) is:
+
+$FV_n = C(1 + r)^{n-1} + C(1+g)(1+r)^{n-2} + ... + C(1+g)^{n-1}$
+
+which can be simplified to:
+
+$FV_n = C(\frac{(1+r)^n - (1+g)^n}{r - g})$
+
+where $r \neq g$.
+
+Again, you can try the calculation, and check your answer on the calculator on the next slide.
+
+
+
+
+
+
+*
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### FV of a Growing Annuity ----
+#{{{
+sidebarLayout(
+	      sidebarPanel(
+inputPanel(
+	   sliderInput("rate.fvga", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
+	   sliderInput("periods.fvga", label = "Number of Periods", min = 1, max = 50, step = 1, value = 10),
+	   sliderInput("cash.fvga", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100),
+	   sliderInput("cash.gr.fvga", label = "Cash Flow Growth Rate per Period", min = 0, max = .2, step = .01, value = .02)
+	   )
+),
+
+			   mainPanel(
+renderPlot({
+    cashFlows <- rep(input$cash.fvga, input$periods.fvga) * (1 + input$cash.gr.fvga)^{1:input$periods.fvga}
+## again, not using the FV of an annuity formula ----
+    fvga <- sum( cashFlows * ((1 + input$rate.fvga) ^ {1:input$periods.fvga}) )
+    plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
+    text(x = 0.5, y = 0.5, labels = paste(round(fvga, 2)), cex = 5)
+    text(x = 0.5, y = 0.95, labels = paste("FV of a Growing Annuity"), cex = 2)
+})
+)
+			   )
+#}}}
+```
+
+
+
+
+* Perpetuity
+
+A **perpetuity** is a contract which pays a fixed amount at the end of each period for an infinite number of periods. Despite having an infinite number of payments, the PV is a finite amount (assuming a positive interest rate).  This is because [later payments become negligible](https://en.wikipedia.org/wiki/Series_(mathematics)#Convergent_series). 
+
+The present value of a perpetuity is:
+
+$PV = \frac{C}{1+r} + \frac{C}{(1+r)^2} + \frac{C}{(1+r)^3} + \ldots =\frac{C}{r}$
+
+
+
+* Applications of the Perpetuity
+
+Likely the best known perpetuity is [preferred stock](https://en.wikipedia.org/wiki/Preferred_stock).  Preferred stock pays a fixed dividend, unlike common stock whose dividend changes over time.  
+
+Say ABC company's preferred stock pays a fixed dividend of \$7 per year every year.  The discount rate is 10%.  Then the preferred stock is worth:
+
+$PV = \frac{\$7}{0.10} = \$70$
+
+
+
+*
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### PV of a Perpetuity ----
+#{{{
+inputPanel(
+	   sliderInput("rate.pvp", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
+	   sliderInput("cash.pvp", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100)
+	   )
+
+renderPlot({
+  pvp <- input$cash.pvp / input$rate.pvp
+  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
+  text(x = 0.5, y = 0.5, labels = paste(round(pvp, 2)), cex = 5)
+      text(x = 0.5, y = 0.95, labels = paste("PV of a Perpetuity"), cex = 2)
+})
+#}}}
+```
+
+
+
+
+
+
+* A Growing Perpetuity
+
+A **growing perpetuity** is a contract which pays a constantly increasing amount at the end of each period for an infinite number of periods.  That is, if the first payment is $\$C$, then the following payments are $\$C(1+g)$, $\$C(1+g)^2$, ... off to infinity.
+
+Assuming $g < r$ the PV of the growing perpetuity is:
+
+$PV = \frac{C}{1+r} + \frac{C(1+g)}{(1+r)^2} + \frac{C(1+g)^2}{(1+r)^3} + ... = \frac{C}{r-g}
+
+If $g \geq r$ then then the value is infinite.  
+
+
+
+* Applications of the Growing Perpetuity
+
+Perhaps the most famous application is the [Gordon Growth Model of stock valuation](https://en.wikipedia.org/wiki/Dividend_discount_model).  The model assumes a stock's dividends grow at a constant rate. Since stock is infinitely lived, we can find the PV of the dividends (the stock's value), as the PV of a growing perpetuity.
+
+-  Say XYZ Corp pays yearly dividends, and next year's dividend will be \$5.  XYZ's dividends are expected to grow at 3% in perpetuity, and its discount rate is 7%.  The value of XYZ's stock is:
+
+$PV = \frac{\$5}{7% - 3%} = \$125$
+
+
+
+
+*
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### PV of a Growing Perpetuity ----
+#{{{
+inputPanel(
+	   sliderInput("rate.pvgp", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
+	   sliderInput("growth.rate.pvgp", label = "CF Growth Rate per Period", min = 0, max = 0.5, step = .01, value = .02),
+	   sliderInput("cash.pvgp", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100)
+	   )
+
+renderPlot({
+  pvgp <- input$cash.pvgp / (input$rate.pvgp - input$growth.rate.pvgp)
+  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
+  if (input$rate.pvgp <= input$growth.rate.pvgp) {
+    text(x = 0.5, y = 0.5, labels = paste("Growth Rate must be less than Discount Rate"), cex = 2)
+  } else {
+    text(x = 0.5, y = 0.5, labels = paste("$", round(pvgp, 2)), cex = 5)
+      text(x = 0.5, y = 0.95, labels = paste("PV of a Growing Perpetuity"), cex = 2)
+  }
+
+})
+#}}}
+```
+
+
+
+
+
+* Irregular Cash Flows
+
+A contract with **Irregular cash flows** is any contract that has a cash flow structure other than those listed above.
+
+-  As mentioned earlier, annuity formulas allowed computationally easy valuation, and therefore use, of the above contracts.  However present computing power makes valuation of any stream of cash flows very easy.  
+
+-  So the valuation of irregular cash flows can simply be done by applying the formulas for single cash flows to each individual cash flow in the contract.  
+
+
+
+
