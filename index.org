@@ -217,6 +217,68 @@ This is equivalent to:
 
 $FV_n = C\left(\frac{(1 + r)^n - 1}{r}\right)$
 
+** Future Value of an Annuity Calculator
+
+** PV of an Annuity Calculator
+
+#+BEGIN_EXPORT html
+
+<script>
+
+var calculate2 = function() {
+
+  var num2 = Number(document.getElementById("num2").value);
+  var rate2 = Number(document.getElementById("rate2").value);
+  var c2 = Number(document.getElementById("c2").value);
+
+  var fva2 = c2 * (Math.pow((1 + rate2), num2) - 1) / rate2;
+  
+  document.getElementById("out_fva2").innerHTML = fva2.toFixed(2);
+
+}
+
+</script>
+
+<body class="all">
+  <h3>
+    Future Value of a Single Cash Flow Calculator
+  </h3>
+
+  <div class="row">
+
+    <div class="column">
+      <table style="width:100%">
+        <tr>
+          <th align="left">Cash Flow per Period:</th>
+          <th><input id="c2" value="100" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Number of Periods:</th>
+          <th><input id="num2" value="10" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Rate Per Period:</th>
+          <th><input id="rate2" value="0.07" style="width: 50px"></th>
+        </tr>
+      </table>
+      <button onclick="calculate2()">
+        Calculate.
+      </button>
+    </div>
+
+    <div class="column">
+    <p><b>Future Value of the Annuity: <span id="out_fva2"></span></b></p>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <br>
+</body>
+
+#+END_EXPORT
+
+
 ** C++ Calculation
 
 #+BEGIN_SRC C++ :results output :exports both
@@ -251,32 +313,6 @@ Calculating the FV of an annuity is most often used in retirement calculations. 
 
 You will have $\frac{\$300(1 + \frac{4\%}{12})^{30(12)}}{\frac{4\%}{12}} = \$298,214.80$
 
- 
-
-
-* Future Value of an Annuity Calculator
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-#{{{
-inputPanel(
-	   sliderInput("rate.fva", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
-	   sliderInput("periods.fva", label = "Number of Periods", min = 1, max = 50, step = 1, value = 10),
-	   sliderInput("cash.fva", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100)
-	   )
-
-renderPlot({
-cashFlows <- rep(input$cash.fva, input$periods.fva)
-## again, not using the FV of an annuity formula ----
-fv <- sum( cashFlows * ((1 + input$rate.fva) ^ {1:input$periods.fva}) )
-  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
-  text(x = 0.5, y = 0.5, labels = paste(round(fv, 2)), cex = 5)
-      text(x = 0.5, y = 0.95, labels = paste("FV of an Annuity"), cex = 2)
-})
-#}}}
-```
-
-
-<!-- [Should we put a calculator which will return *FV*, *PV*, *r*, and *n* given the other inputs?] -->
 
  
 
@@ -301,37 +337,12 @@ $PV = C(\frac{1-(\frac{1+g}{1+r})^n}{r - g})$
 Feel free to try the calculation, and check your answer on the calculator on the next slide.
 
 
+** Present Value of a Growing Annuity Calculator
 
-* 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-### PV of a Growing Annuity ----
-#{{{
-sidebarLayout(
-	      sidebarPanel(
-			   inputPanel(
-				      sliderInput("rate.pvga", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
-				      sliderInput("periods.pvga", label = "Number of Periods", min = 1, max = 50, step = 1, value = 10),
-				      sliderInput("cash.pvga", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100),
-				      sliderInput("cash.gr.pvga", label = "Cash Flow Growth Rate per Period", min = 0, max = .2, step = .01, value = .02)
-				      )
-			   ),
 
-	      mainPanel(
-			renderPlot({
-			  cashFlows <- rep(input$cash.pvga, input$periods.pvga) * (1 + input$cash.gr.pvga)^{1:input$periods.pvga}
-			  ## again, not using the PV of an annuity formula ----
-			  pvga <- sum( cashFlows / ((1 + input$rate.pvga) ^ {1:input$periods.pvga}) )
-			  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
-			  text(x = 0.5, y = 0.5, labels = paste(round(pvga, 2)), cex = 5)
-      text(x = 0.5, y = 0.95, labels = paste("PV of a Growing Annuity"), cex = 2)
-			})
-			)
-	      )
-#}}}
-```
 
-##  FV of a Growing Annuity
+*  FV of a Growing Annuity
 
 The FV of a growing annuity (in the last period $n$) is:
 
