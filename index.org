@@ -219,21 +219,19 @@ $FV_n = C\left(\frac{(1 + r)^n - 1}{r}\right)$
 
 ** Future Value of an Annuity Calculator
 
-** PV of an Annuity Calculator
-
 #+BEGIN_EXPORT html
 
 <script>
 
-var calculate2 = function() {
+var calculate3 = function() {
 
-  var num2 = Number(document.getElementById("num2").value);
-  var rate2 = Number(document.getElementById("rate2").value);
-  var c2 = Number(document.getElementById("c2").value);
+  var num3 = Number(document.getElementById("num3").value);
+  var rate3 = Number(document.getElementById("rate3").value);
+  var c3 = Number(document.getElementById("c3").value);
 
-  var fva2 = c2 * (Math.pow((1 + rate2), num2) - 1) / rate2;
+  var fva3 = c3 * (Math.pow((1 + rate3), num3) - 1) / rate3;
   
-  document.getElementById("out_fva2").innerHTML = fva2.toFixed(2);
+  document.getElementById("out_fva3").innerHTML = fva3.toFixed(2);
 
 }
 
@@ -241,7 +239,7 @@ var calculate2 = function() {
 
 <body class="all">
   <h3>
-    Future Value of a Single Cash Flow Calculator
+    Future Value of an Annuity Calculator
   </h3>
 
   <div class="row">
@@ -250,24 +248,24 @@ var calculate2 = function() {
       <table style="width:100%">
         <tr>
           <th align="left">Cash Flow per Period:</th>
-          <th><input id="c2" value="100" style="width: 50px"></th>
+          <th><input id="c3" value="100" style="width: 50px"></th>
         </tr>
         <tr>
           <th align="left">Number of Periods:</th>
-          <th><input id="num2" value="10" style="width: 50px"></th>
+          <th><input id="num3" value="10" style="width: 50px"></th>
         </tr>
         <tr>
           <th align="left">Rate Per Period:</th>
-          <th><input id="rate2" value="0.07" style="width: 50px"></th>
+          <th><input id="rate3" value="0.07" style="width: 50px"></th>
         </tr>
       </table>
-      <button onclick="calculate2()">
+      <button onclick="calculate3()">
         Calculate.
       </button>
     </div>
 
     <div class="column">
-    <p><b>Future Value of the Annuity: <span id="out_fva2"></span></b></p>
+    <p><b>Future Value of the Annuity: <span id="out_fva3"></span></b></p>
     </div>
 
   </div>
@@ -309,12 +307,10 @@ var calculate2 = function() {
 
 * Applications of the FV of an Annuity
 
-Calculating the FV of an annuity is most often used in retirement calculations.  For example, if you put \$300 per month into an account earning 4% annual interest, how much money would you have in the account in 30 years?  
+Calculating the FV of an annuity is most often used in retirement calculations.  For example, if you put $300 per month into an account earning 4% annual interest, how much money would you have in the account in 30 years?  
 
-You will have $\frac{\$300(1 + \frac{4\%}{12})^{30(12)}}{\frac{4\%}{12}} = \$298,214.80$
+You will have $\frac{300(1 + \frac{0.04}{12})^{30(12)}}{\frac{0.04}{12}} = 298,214.80$
 
-
- 
 
 * A Growing Annuity
 
