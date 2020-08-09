@@ -546,7 +546,7 @@ If $g \geq r$ then then the value is infinite.
 
 Perhaps the most famous application is the [[https://en.wikipedia.org/wiki/Dividend_discount_model][Gordon Growth Model of stock valuation]].  The model assumes a stock's dividends grow at a constant rate. Since stock is infinitely lived, we can find the PV of the dividends (the stock's value), as the PV of a growing perpetuity.
 
--  Say XYZ Corp pays yearly dividends, and next year's dividend will be \$5.  XYZ's dividends are expected to grow at 3% in perpetuity, and its discount rate is 7%.  The value of XYZ's stock is:
+-  Say XYZ Corp pays yearly dividends, and next year's dividend will be $5.  XYZ's dividends are expected to grow at 3% in perpetuity, and its discount rate is 7%.  The value of XYZ's stock is:
 
 $PV = \frac{5}{0.07 - 0.03} = 125$
 
@@ -561,6 +561,25 @@ A contract with **Irregular cash flows** is any contract that has a cash flow st
 
 -  So the valuation of irregular cash flows can simply be done by applying the formulas for single cash flows to each individual cash flow in the contract.  
 
+
+
+* [[https://en.wikipedia.org/wiki/Flesch%25E2%2580%2593Kincaid_readability_tests][Reading Ease Score]]
+
+#+BEGIN_SRC elisp :results output :exports results
+(print (writegood-reading-ease))
+#+END_SRC
+
+#+RESULTS:
+: 
+: "Flesch-Kincaid reading ease score: 96.88 Very easy (5th grade)"
+
+#+BEGIN_SRC elisp :results output :exports results
+(print (writegood-grade-level))
+#+END_SRC
+
+#+RESULTS:
+: 
+: "Flesch-Kincaid grade level score: 3.44"
 
 
 
