@@ -204,7 +204,18 @@ print(round(present_value_annuity(C, rate, periods), 2))
  
 
 
- 
+
+** How Long Will It Take To Pay Off Your Credit Card? (solving for n) 
+
+
+#+BEGIN_EXPORT html
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jhIeir9TEDg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+#+END_EXPORT
+
+
+
+
+
 * The Future Value (FV) of an Annuity
 
 We can instead push each cash flow into the last period and find the total value of the payments then.  This is the future value (FV) of the annuity.
@@ -335,6 +346,67 @@ Feel free to try the calculation, and check your answer on the calculator on the
 
 ** Present Value of a Growing Annuity Calculator
 
+#+BEGIN_EXPORT html
+
+<script>
+
+var calculate_4 = function() {
+
+  var num_4 = Number(document.getElementById("num_4").value);
+  var rate_4 = Number(document.getElementById("rate_4").value);
+  var c_4 = Number(document.getElementById("c_4").value);
+  var g_4 = Number(document.getElementById("g_4").value);
+
+  var pvga_4 = c_4 * ((1 - Math.pow( (1 + g_4) / (1 + rate_4), num_4) ) / (rate_4 - g_4));
+  
+  document.getElementById("out_pvga_4").innerHTML = pvga_4.toFixed(2);
+
+}
+
+</script>
+
+<body class="all">
+  <h3>
+    Present Value of a Growing Annuity Calculator
+  </h3>
+
+  <div class="row">
+
+    <div class="column">
+      <table style="width:100%">
+        <tr>
+          <th align="left">Cash Flow per Period:</th>
+          <th><input id="c_4" value="100" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Number of Periods:</th>
+          <th><input id="num_4" value="10" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Discount Rate Per Period:</th>
+          <th><input id="rate_4" value="0.07" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Growth Rate Per Period:</th>
+          <th><input id="g_4" value="0.04" style="width: 50px"></th>
+        </tr>
+      </table>
+      <button onclick="calculate_4()">
+        Calculate.
+      </button>
+    </div>
+
+    <div class="column">
+    <p><b>Present Value of the Growing Annuity: <span id="out_pvga_4"></span></b></p>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <br>
+</body>
+
+#+END_EXPORT
 
 
 
@@ -348,91 +420,115 @@ which can be simplified to:
 
 $FV_n = C(\frac{(1+r)^n - (1+g)^n}{r - g})$
 
-where $r \neq g$.
+where $r \neq g$.  Note the future value is at period /n/.
 
-Again, you can try the calculation, and check your answer on the calculator on the next slide.
+Again, you can try the calculation, and check your answer using the following calculator.
+
+#+BEGIN_EXPORT html
+
+<script>
+
+var calculate_5 = function() {
+
+  var num_5 = Number(document.getElementById("num_5").value);
+  var rate_5 = Number(document.getElementById("rate_5").value);
+  var c_5 = Number(document.getElementById("c_5").value);
+  var g_5 = Number(document.getElementById("g_5").value);
+
+  var fvga_5 = c_5 * ((Math.pow(1 + rate_5, num_5) - Math.pow(1 + g_5, num_5) )/ (rate_5 - g_5));
+  
+  document.getElementById("out_fvga_5").innerHTML = fvga_5.toFixed(2);
+
+}
+
+</script>
+
+<body class="all">
+  <h3>
+    Present Value of a Growing Annuity Calculator
+  </h3>
+
+  <div class="row">
+
+    <div class="column">
+      <table style="width:100%">
+        <tr>
+          <th align="left">Cash Flow per Period:</th>
+          <th><input id="c_5" value="100" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Number of Periods:</th>
+          <th><input id="num_5" value="10" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Discount Rate Per Period:</th>
+          <th><input id="rate_5" value="0.07" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Growth Rate Per Period:</th>
+          <th><input id="g_5" value="0.04" style="width: 50px"></th>
+        </tr>
+      </table>
+      <button onclick="calculate_5()">
+        Calculate.
+      </button>
+    </div>
+
+    <div class="column">
+    <p><b>Future Value of the Growing Annuity: <span id="out_fvga_5"></span></b></p>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <br>
+</body>
+
+#+END_EXPORT
 
 
 
 
+#+BEGIN_COMMENT
+#+BEGIN_EXPORT html
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+  {{ message }}
+</div>
 
 
-*
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-### FV of a Growing Annuity ----
-#{{{
-sidebarLayout(
-	      sidebarPanel(
-inputPanel(
-	   sliderInput("rate.fvga", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
-	   sliderInput("periods.fvga", label = "Number of Periods", min = 1, max = 50, step = 1, value = 10),
-	   sliderInput("cash.fvga", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100),
-	   sliderInput("cash.gr.fvga", label = "Cash Flow Growth Rate per Period", min = 0, max = .2, step = .01, value = .02)
-	   )
-),
-
-			   mainPanel(
-renderPlot({
-    cashFlows <- rep(input$cash.fvga, input$periods.fvga) * (1 + input$cash.gr.fvga)^{1:input$periods.fvga}
-## again, not using the FV of an annuity formula ----
-    fvga <- sum( cashFlows * ((1 + input$rate.fvga) ^ {1:input$periods.fvga}) )
-    plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
-    text(x = 0.5, y = 0.5, labels = paste(round(fvga, 2)), cex = 5)
-    text(x = 0.5, y = 0.95, labels = paste("FV of a Growing Annuity"), cex = 2)
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
 })
-)
-			   )
-#}}}
-```
+</script>
 
-
-
+#+END_EXPORT
+#+END_COMMENT
 
 * Perpetuity
 
-A **perpetuity** is a contract which pays a fixed amount at the end of each period for an infinite number of periods. Despite having an infinite number of payments, the PV is a finite amount (assuming a positive interest rate).  This is because [later payments become negligible](https://en.wikipedia.org/wiki/Series_(mathematics)#Convergent_series). 
+A **perpetuity** is a contract which pays a fixed amount at the end of each period for an infinite number of periods. Despite having an infinite number of payments, the PV is a finite amount (assuming a positive interest rate).  This is because [[https://en.wikipedia.org/wiki/Series_(mathematics)#Convergent_series][later payments become negligible]]. 
 
 The present value of a perpetuity is:
 
 $PV = \frac{C}{1+r} + \frac{C}{(1+r)^2} + \frac{C}{(1+r)^3} + \ldots =\frac{C}{r}$
 
-
+#+BEGIN_EXPORT html
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LvWzuL4JkGc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+#+END_EXPORT
 
 * Applications of the Perpetuity
 
-Likely the best known perpetuity is [preferred stock](https://en.wikipedia.org/wiki/Preferred_stock).  Preferred stock pays a fixed dividend, unlike common stock whose dividend changes over time.  
+Likely the best known perpetuity is [[https://en.wikipedia.org/wiki/Preferred_stock][preferred stock]].  Preferred stock pays a fixed dividend, unlike common stock whose dividend changes over time.  
 
-Say ABC company's preferred stock pays a fixed dividend of \$7 per year every year.  The discount rate is 10%.  Then the preferred stock is worth:
+Say ABC company's preferred stock pays a fixed dividend of $7 per year every year.  The discount rate is 10%.  Then the preferred stock is worth:
 
-$PV = \frac{\$7}{0.10} = \$70$
-
-
-
-*
-
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-### PV of a Perpetuity ----
-#{{{
-inputPanel(
-	   sliderInput("rate.pvp", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
-	   sliderInput("cash.pvp", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100)
-	   )
-
-renderPlot({
-  pvp <- input$cash.pvp / input$rate.pvp
-  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
-  text(x = 0.5, y = 0.5, labels = paste(round(pvp, 2)), cex = 5)
-      text(x = 0.5, y = 0.95, labels = paste("PV of a Perpetuity"), cex = 2)
-})
-#}}}
-```
-
-
-
-
-
+$PV = \frac{7}{0.10} = 70$
 
 * A Growing Perpetuity
 
@@ -448,40 +544,11 @@ If $g \geq r$ then then the value is infinite.
 
 * Applications of the Growing Perpetuity
 
-Perhaps the most famous application is the [Gordon Growth Model of stock valuation](https://en.wikipedia.org/wiki/Dividend_discount_model).  The model assumes a stock's dividends grow at a constant rate. Since stock is infinitely lived, we can find the PV of the dividends (the stock's value), as the PV of a growing perpetuity.
+Perhaps the most famous application is the [[https://en.wikipedia.org/wiki/Dividend_discount_model][Gordon Growth Model of stock valuation]].  The model assumes a stock's dividends grow at a constant rate. Since stock is infinitely lived, we can find the PV of the dividends (the stock's value), as the PV of a growing perpetuity.
 
 -  Say XYZ Corp pays yearly dividends, and next year's dividend will be \$5.  XYZ's dividends are expected to grow at 3% in perpetuity, and its discount rate is 7%.  The value of XYZ's stock is:
 
-$PV = \frac{\$5}{7% - 3%} = \$125$
-
-
-
-
-*
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-### PV of a Growing Perpetuity ----
-#{{{
-inputPanel(
-	   sliderInput("rate.pvgp", label = "Interest Rate per Period", min = 0, max = 0.5, step = .01, value = .05),
-	   sliderInput("growth.rate.pvgp", label = "CF Growth Rate per Period", min = 0, max = 0.5, step = .01, value = .02),
-	   sliderInput("cash.pvgp", label = "Cash Flow per Period", min = 0, max = 2000, step = 10, value = 100)
-	   )
-
-renderPlot({
-  pvgp <- input$cash.pvgp / (input$rate.pvgp - input$growth.rate.pvgp)
-  plot(0, ylim = c(0,1), xlim = c(0,1), type = "n", xaxt = "n", yaxt = "n", ylab = "", xlab = "")
-  if (input$rate.pvgp <= input$growth.rate.pvgp) {
-    text(x = 0.5, y = 0.5, labels = paste("Growth Rate must be less than Discount Rate"), cex = 2)
-  } else {
-    text(x = 0.5, y = 0.5, labels = paste("$", round(pvgp, 2)), cex = 5)
-      text(x = 0.5, y = 0.95, labels = paste("PV of a Growing Perpetuity"), cex = 2)
-  }
-
-})
-#}}}
-```
-
+$PV = \frac{5}{0.07 - 0.03} = 125$
 
 
 
