@@ -123,6 +123,9 @@ rearranging for $C$ (the monthly payment) gives:
 $C = \$805.23$ 
 
 ** Cash Flow Per Period in an Annuity Calculator
+   
+
+$$C = \frac{PVA(r)}{1 - 1/(1+r)^n}$$
 
 #+BEGIN_EXPORT html
 
