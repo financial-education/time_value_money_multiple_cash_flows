@@ -112,20 +112,24 @@ print(round(present_value_annuity(C, rate, periods), 2))
 : 702.36
 
 
-* Applications of the PV of an Annuity
+* Solving for C in the PV of an Annuity
 
 You can use the above formula to find your monthly mortgage payment.  Say you are going to borrow \$150,000 to buy a house, and your 30-year mortgage rate is 5\%.  We can plug these values into the formula:
 
-$\$150,000 = C(\frac{1 - \frac{1}{(1 + \frac{5\%}{12})^{12(30)}}}{\frac{5\%}{12}})$ 
+$$$150,000 = C(\frac{1 - \frac{1}{(1 + \frac{0.05}{12})^{12(30)}}}{\frac{0.05}{12}})$$ 
 
 rearranging for $C$ (the monthly payment) gives:
 
 $C = \$805.23$ 
 
+The general formula is:
+
+$$C = \frac{PVA(r)}{1 - 1/(1+r)^n}$$
+
+
 ** Cash Flow Per Period in an Annuity Calculator
    
 
-$$C = \frac{PVA(r)}{1 - 1/(1+r)^n}$$
 
 #+BEGIN_EXPORT html
 
@@ -205,16 +209,26 @@ print(round(present_value_annuity(C, rate, periods), 2))
 
 
  
+* Solving for n in the PV of an Annuity 
 
+Rearranging the formula for the present value of the annuity affords:
+
+
+$$n = \frac{ln\left(\frac{C}{C - PVA(r)\right)}}{ln(1+r)}$$
 
 
 ** How Long Will It Take To Pay Off Your Credit Card? (solving for n) 
 
+   
 
 #+BEGIN_EXPORT html
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jhIeir9TEDg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 #+END_EXPORT
 
+
+* Solving for r in the PV of an Annuity 
+  
+To solve for $r$ we need to find the root of an $n$ degree polynomial.  
 
 
 
