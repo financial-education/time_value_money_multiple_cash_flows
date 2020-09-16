@@ -351,6 +351,16 @@ var calculate3 = function() {
 
  
 
+** Rearranging for the Cash Flow per Period
+
+
+$C = \frac{FV_n(r)}{\left(\frac{(1 + r)^n - 1}{r}\right)}$
+
+
+
+
+
+
 * Applications of the FV of an Annuity
 
 Calculating the FV of an annuity is most often used in retirement calculations.  For example, if you put $300 per month into an account earning 4% annual interest, how much money would you have in the account in 30 years?  
