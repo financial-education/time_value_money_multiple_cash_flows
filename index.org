@@ -354,7 +354,7 @@ var calculate3 = function() {
 ** Rearranging for the Cash Flow per Period
 
 
-$C = \frac{FV_n(r)}{\left(\frac{(1 + r)^n - 1}{r}\right)}$
+$C = \frac{FV_n(r)}{\left((1 + r)^n - 1\right)}$
 
 
 
