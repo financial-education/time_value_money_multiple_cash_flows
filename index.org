@@ -228,7 +228,25 @@ $$n = \frac{ln\left(\frac{C}{C - PVA(r)\right)}}{ln(1+r)}$$
 
 * Solving for r in the PV of an Annuity 
   
-To solve for $r$ we need to find the root of an $n$ degree polynomial.  
+To solve for $r$ we need to find the root of an $n$ degree polynomial, which we can do with an optimizer (such as in the example below or using ==IRR()= in Excel, which both use the Newton-Raphson algorithm).
+
+#+BEGIN_SRC python :results output :exports both
+from scipy import optimize
+
+C = 100
+years = 10
+annuity_present_value = 702.36 
+
+def eq(YTM):
+    return(C * (1 - 1 / pow(1 + YTM, years)) / YTM - annuity_present_value)
+    
+root = optimize.newton(eq, 0.1) ## 0.1 is our initial guess
+
+print("The rate per period is: ", round(root * 100, 2), "%")
+#+END_SRC
+
+#+RESULTS:
+: The rate per period is:  7.0 %
 
 
 
