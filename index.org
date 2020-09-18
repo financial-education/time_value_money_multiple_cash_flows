@@ -367,6 +367,16 @@ Calculating the FV of an annuity is most often used in retirement calculations. 
 
 You will have $\frac{300(1 + \frac{0.04}{12})^{30(12)}}{\frac{0.04}{12}} = 298,214.80$
 
+* Solving for C in FVA
+
+$C = \frac{FVA(r)}{(1 + r)^n - 1}$
+
+* Solving for r in FVA
+
+==IRR()= in Excel or optimization. 
+
+* Solving for n in FVA
+
 
 * A Growing Annuity
 
