@@ -365,7 +365,21 @@ $C = \frac{FV_n(r)}{\left((1 + r)^n - 1\right)}$
 
 Calculating the FV of an annuity is most often used in retirement calculations.  For example, if you put $300 per month into an account earning 4% annual interest, how much money would you have in the account in 30 years?  
 
-You will have $\frac{300(1 + \frac{0.04}{12})^{30(12)}}{\frac{0.04}{12}} = 298,214.80$
+You will have $300\frac{(1 + \frac{0.04}{12})^{30(12)} - 1}{\frac{0.04}{12}} = 298,214.80$
+
+#+BEGIN_SRC python :results output :exports both
+
+pmt_per_period = 300 
+periods = 30 * 12
+rate_per_period = 0.04 / 12
+
+FV = pmt_per_period * (pow(1 + rate_per_period, periods) - 1) / rate_per_period
+    
+print("The Future Value of the Annuity is: ", round(FV, 2))
+#+END_SRC
+
+#+RESULTS:
+: The Future Value of the Annuity is:  208214.82
 
 * Solving for C in FVA
 
@@ -374,6 +388,29 @@ $C = \frac{FVA(r)}{(1 + r)^n - 1}$
 * Solving for r in FVA
 
 ==IRR()= in Excel or optimization. 
+
+Example in python:
+
+#+BEGIN_SRC python :results output :exports both
+from scipy import optimize
+
+pmt_per_period = 300 
+periods = 30 * 12
+FV = 208214.82
+
+def find_rate(r):
+    return(pmt_per_period * (pow(1 + r, periods) - 1) / r - FV)
+    
+root = optimize.newton(find_rate, 0.1) ## 0.1 is our initial guess
+## note, there are not multiple roots here, but if there were would this root finder list them????
+
+print("The monthly rate is: ", round(root * 100, 2), "%")
+print("The rate per year (quoted rate) is: ", round((root * 12) * 100, 2), "%")
+#+END_SRC
+
+#+RESULTS:
+: The monthly rate is:  0.33 %
+: The rate per year (quoted rate) is:  4.0 %
 
 * Solving for n in FVA
 

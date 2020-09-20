@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-09-18 Fri 12:16 -->
+<!-- 2020-09-20 Sun 11:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Valuing Contracts with Multiple Cash Flows</title>
@@ -262,49 +262,49 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org95c2b50">1. Annuities</a></li>
-<li><a href="#orgbb3fef7">2. The Present Value of an Annuity</a>
+<li><a href="#orgb669c2d">1. Annuities</a></li>
+<li><a href="#orgddf8fc0">2. The Present Value of an Annuity</a>
 <ul>
-<li><a href="#org987da28">2.1. PV of an Annuity Calculator</a></li>
-<li><a href="#org1842ae3">2.2. Python calculation</a></li>
+<li><a href="#org829ca67">2.1. PV of an Annuity Calculator</a></li>
+<li><a href="#org31a0b19">2.2. Python calculation</a></li>
 </ul>
 </li>
-<li><a href="#org892e8ef">3. Solving for C in the PV of an Annuity</a>
+<li><a href="#org3bd339e">3. Solving for C in the PV of an Annuity</a>
 <ul>
-<li><a href="#org29a54ee">3.1. Cash Flow Per Period in an Annuity Calculator</a></li>
-<li><a href="#orgb5434af">3.2. Python calculation</a></li>
+<li><a href="#orgd0de3dc">3.1. Cash Flow Per Period in an Annuity Calculator</a></li>
+<li><a href="#orgdb9feff">3.2. Python calculation</a></li>
 </ul>
 </li>
-<li><a href="#org9ce3a9f">4. Solving for n in the PV of an Annuity</a>
+<li><a href="#org06a11ab">4. Solving for n in the PV of an Annuity</a>
 <ul>
-<li><a href="#orgecedd19">4.1. How Long Will It Take To Pay Off Your Credit Card? (solving for n)</a></li>
+<li><a href="#orgaed841c">4.1. How Long Will It Take To Pay Off Your Credit Card? (solving for n)</a></li>
 </ul>
 </li>
-<li><a href="#orgf1edf9a">5. Solving for r in the PV of an Annuity</a></li>
-<li><a href="#orge61f116">6. The Future Value (FV) of an Annuity</a>
+<li><a href="#org1d55dab">5. Solving for r in the PV of an Annuity</a></li>
+<li><a href="#org0c3059a">6. The Future Value (FV) of an Annuity</a>
 <ul>
-<li><a href="#org742ac36">6.1. Future Value of an Annuity Calculator</a></li>
-<li><a href="#org27137e4">6.2. C++ Calculation</a></li>
-<li><a href="#orgb5e40d8">6.3. Rearranging for the Cash Flow per Period</a></li>
+<li><a href="#org32af83a">6.1. Future Value of an Annuity Calculator</a></li>
+<li><a href="#orge51c338">6.2. C++ Calculation</a></li>
+<li><a href="#org9217047">6.3. Rearranging for the Cash Flow per Period</a></li>
 </ul>
 </li>
-<li><a href="#orga5baa24">7. Saving for Retirement and the FV of an Annuity</a></li>
-<li><a href="#orge483075">8. Solving for C in FVA</a></li>
-<li><a href="#org1eb35f3">9. Solving for r in FVA</a></li>
-<li><a href="#orgdda8c4e">10. Solving for n in FVA</a></li>
-<li><a href="#orgfd07010">11. A Growing Annuity</a></li>
-<li><a href="#org6f1831f">12. PV of a Growing Annuity</a>
+<li><a href="#org5688599">7. Saving for Retirement and the FV of an Annuity</a></li>
+<li><a href="#org5d891e9">8. Solving for C in FVA</a></li>
+<li><a href="#org2388cd5">9. Solving for r in FVA</a></li>
+<li><a href="#org33a176a">10. Solving for n in FVA</a></li>
+<li><a href="#org90b93ef">11. A Growing Annuity</a></li>
+<li><a href="#orgd9bf9aa">12. PV of a Growing Annuity</a>
 <ul>
-<li><a href="#orga5107c7">12.1. Present Value of a Growing Annuity Calculator</a></li>
+<li><a href="#org6816edc">12.1. Present Value of a Growing Annuity Calculator</a></li>
 </ul>
 </li>
-<li><a href="#orgc8dba02">13. FV of a Growing Annuity</a></li>
-<li><a href="#org6d2b39e">14. Perpetuity</a></li>
-<li><a href="#orgcac7f48">15. Applications of the Perpetuity</a></li>
-<li><a href="#orgcbc508a">16. A Growing Perpetuity</a></li>
-<li><a href="#orged201b2">17. Applications of the Growing Perpetuity</a></li>
-<li><a href="#org1718c11">18. Irregular Cash Flows</a></li>
-<li><a href="#org63d197f">19. Reading Ease Score</a></li>
+<li><a href="#orge8c6df0">13. FV of a Growing Annuity</a></li>
+<li><a href="#org79ad5aa">14. Perpetuity</a></li>
+<li><a href="#org2ca726c">15. Applications of the Perpetuity</a></li>
+<li><a href="#org14c29df">16. A Growing Perpetuity</a></li>
+<li><a href="#org7d2d00c">17. Applications of the Growing Perpetuity</a></li>
+<li><a href="#orga4b0079">18. Irregular Cash Flows</a></li>
+<li><a href="#org923925a">19. Reading Ease Score</a></li>
 </ul>
 </div>
 </div>
@@ -319,8 +319,8 @@ In this presentation, we'll look at the valuation of contracts that are comprise
 <li>Irregular Cash Flows</li>
 </ul>
 
-<div id="outline-container-org95c2b50" class="outline-2">
-<h2 id="org95c2b50"><span class="section-number-2">1</span> Annuities</h2>
+<div id="outline-container-orgb669c2d" class="outline-2">
+<h2 id="orgb669c2d"><span class="section-number-2">1</span> Annuities</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 An <b><b>annuity</b></b> is a contract which pays a fixed amount at the end of each period for a fixed number of periods.  Many common financial contracts are annuities, such as fixed-rate mortgages and auto loans.  If the payments are in the beginning of a period (such as renting an apartment) the contract is known as an <b>annuity due</b>.
@@ -343,8 +343,8 @@ It is important that each quantity you use is over the same period, i.e. don't u
 </div>
 
 
-<div id="outline-container-orgbb3fef7" class="outline-2">
-<h2 id="orgbb3fef7"><span class="section-number-2">2</span> The Present Value of an Annuity</h2>
+<div id="outline-container-orgddf8fc0" class="outline-2">
+<h2 id="orgddf8fc0"><span class="section-number-2">2</span> The Present Value of an Annuity</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 To calculate the present value (PV) of an annuity, we can simply discount each payment individually, to the same period, and sum them:
@@ -364,8 +364,8 @@ Note the PV is at time 0 (one period before the first payment in time 1). This c
 </div>
 
 
-<div id="outline-container-org987da28" class="outline-3">
-<h3 id="org987da28"><span class="section-number-3">2.1</span> PV of an Annuity Calculator</h3>
+<div id="outline-container-org829ca67" class="outline-3">
+<h3 id="org829ca67"><span class="section-number-3">2.1</span> PV of an Annuity Calculator</h3>
 <div class="outline-text-3" id="text-2-1">
 
 <script>
@@ -424,8 +424,8 @@ var calculate = function() {
 </div>
 
 
-<div id="outline-container-org1842ae3" class="outline-3">
-<h3 id="org1842ae3"><span class="section-number-3">2.2</span> Python calculation</h3>
+<div id="outline-container-org31a0b19" class="outline-3">
+<h3 id="org31a0b19"><span class="section-number-3">2.2</span> Python calculation</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">present_value_annuity</span><span style="color: #4f97d7;">(</span>C, rate, periods<span style="color: #4f97d7;">)</span>:
@@ -449,8 +449,8 @@ var calculate = function() {
 </div>
 
 
-<div id="outline-container-org892e8ef" class="outline-2">
-<h2 id="org892e8ef"><span class="section-number-2">3</span> Solving for C in the PV of an Annuity</h2>
+<div id="outline-container-org3bd339e" class="outline-2">
+<h2 id="org3bd339e"><span class="section-number-2">3</span> Solving for C in the PV of an Annuity</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 You can use the above formula to find your monthly mortgage payment.  Say you are going to borrow \$150,000 to buy a house, and your 30-year mortgage rate is 5\%.  We can plug these values into the formula:
@@ -478,8 +478,8 @@ The general formula is:
 </div>
 
 
-<div id="outline-container-org29a54ee" class="outline-3">
-<h3 id="org29a54ee"><span class="section-number-3">3.1</span> Cash Flow Per Period in an Annuity Calculator</h3>
+<div id="outline-container-orgd0de3dc" class="outline-3">
+<h3 id="orgd0de3dc"><span class="section-number-3">3.1</span> Cash Flow Per Period in an Annuity Calculator</h3>
 <div class="outline-text-3" id="text-3-1">
 
 <script>
@@ -538,8 +538,8 @@ var calculate2 = function() {
 </div>
 
 
-<div id="outline-container-orgb5434af" class="outline-3">
-<h3 id="orgb5434af"><span class="section-number-3">3.2</span> Python calculation</h3>
+<div id="outline-container-orgdb9feff" class="outline-3">
+<h3 id="orgdb9feff"><span class="section-number-3">3.2</span> Python calculation</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">cash_flow_per_period</span><span style="color: #4f97d7;">(</span>pva, rate, periods<span style="color: #4f97d7;">)</span>:
@@ -560,8 +560,8 @@ var calculate2 = function() {
 
 
 
-<div id="outline-container-org9ce3a9f" class="outline-2">
-<h2 id="org9ce3a9f"><span class="section-number-2">4</span> Solving for n in the PV of an Annuity</h2>
+<div id="outline-container-org06a11ab" class="outline-2">
+<h2 id="org06a11ab"><span class="section-number-2">4</span> Solving for n in the PV of an Annuity</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Rearranging the formula for the present value of the annuity affords:
@@ -574,8 +574,8 @@ Rearranging the formula for the present value of the annuity affords:
 </div>
 
 
-<div id="outline-container-orgecedd19" class="outline-3">
-<h3 id="orgecedd19"><span class="section-number-3">4.1</span> How Long Will It Take To Pay Off Your Credit Card? (solving for n)</h3>
+<div id="outline-container-orgaed841c" class="outline-3">
+<h3 id="orgaed841c"><span class="section-number-3">4.1</span> How Long Will It Take To Pay Off Your Credit Card? (solving for n)</h3>
 <div class="outline-text-3" id="text-4-1">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jhIeir9TEDg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
@@ -583,8 +583,8 @@ Rearranging the formula for the present value of the annuity affords:
 </div>
 
 
-<div id="outline-container-orgf1edf9a" class="outline-2">
-<h2 id="orgf1edf9a"><span class="section-number-2">5</span> Solving for r in the PV of an Annuity</h2>
+<div id="outline-container-org1d55dab" class="outline-2">
+<h2 id="org1d55dab"><span class="section-number-2">5</span> Solving for r in the PV of an Annuity</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 To solve for \(r\) we need to find the root of an \(n\) degree polynomial, which we can do with an optimizer (such as in the example below or using <code>=IRR()</code> in Excel, which both use the Newton-Raphson algorithm).
@@ -616,8 +616,8 @@ The rate per period is:  7.0 %
 
 
 
-<div id="outline-container-orge61f116" class="outline-2">
-<h2 id="orge61f116"><span class="section-number-2">6</span> The Future Value (FV) of an Annuity</h2>
+<div id="outline-container-org0c3059a" class="outline-2">
+<h2 id="org0c3059a"><span class="section-number-2">6</span> The Future Value (FV) of an Annuity</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 We can instead push each cash flow into the last period and find the total value of the payments then.  This is the future value (FV) of the annuity.
@@ -640,8 +640,8 @@ This is equivalent to:
 </p>
 </div>
 
-<div id="outline-container-org742ac36" class="outline-3">
-<h3 id="org742ac36"><span class="section-number-3">6.1</span> Future Value of an Annuity Calculator</h3>
+<div id="outline-container-org32af83a" class="outline-3">
+<h3 id="org32af83a"><span class="section-number-3">6.1</span> Future Value of an Annuity Calculator</h3>
 <div class="outline-text-3" id="text-6-1">
 
 <script>
@@ -700,8 +700,8 @@ var calculate3 = function() {
 </div>
 
 
-<div id="outline-container-org27137e4" class="outline-3">
-<h3 id="org27137e4"><span class="section-number-3">6.2</span> C++ Calculation</h3>
+<div id="outline-container-orge51c338" class="outline-3">
+<h3 id="orge51c338"><span class="section-number-3">6.2</span> C++ Calculation</h3>
 <div class="outline-text-3" id="text-6-2">
 <div class="org-src-container">
 <pre class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">&lt;cmath&gt;</span>
@@ -734,8 +734,8 @@ cout &lt;&lt; ans;
 
 
 
-<div id="outline-container-orgb5e40d8" class="outline-3">
-<h3 id="orgb5e40d8"><span class="section-number-3">6.3</span> Rearranging for the Cash Flow per Period</h3>
+<div id="outline-container-org9217047" class="outline-3">
+<h3 id="org9217047"><span class="section-number-3">6.3</span> Rearranging for the Cash Flow per Period</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 \(C = \frac{FV_n(r)}{\left((1 + r)^n - 1\right)}\)
@@ -749,21 +749,38 @@ cout &lt;&lt; ans;
 
 
 
-<div id="outline-container-orga5baa24" class="outline-2">
-<h2 id="orga5baa24"><span class="section-number-2">7</span> Saving for Retirement and the FV of an Annuity</h2>
+<div id="outline-container-org5688599" class="outline-2">
+<h2 id="org5688599"><span class="section-number-2">7</span> Saving for Retirement and the FV of an Annuity</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 Calculating the FV of an annuity is most often used in retirement calculations.  For example, if you put $300 per month into an account earning 4% annual interest, how much money would you have in the account in 30 years?  
 </p>
 
 <p>
-You will have \(\frac{300(1 + \frac{0.04}{12})^{30(12)}}{\frac{0.04}{12}} = 298,214.80\)
+You will have \(300\frac{(1 + \frac{0.04}{12})^{30(12)} - 1}{\frac{0.04}{12}} = 298,214.80\)
 </p>
+
+<div class="org-src-container">
+<pre class="src src-python">
+<span style="color: #7590db;">pmt_per_period</span> = 300 
+<span style="color: #7590db;">periods</span> = 30 * 12
+<span style="color: #7590db;">rate_per_period</span> = 0.04 / 12
+
+<span style="color: #7590db;">FV</span> = pmt_per_period * <span style="color: #4f97d7;">(</span><span style="color: #4f97d7;">pow</span><span style="color: #bc6ec5;">(</span>1 + rate_per_period, periods<span style="color: #bc6ec5;">)</span> - 1<span style="color: #4f97d7;">)</span> / rate_per_period
+
+<span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"The Future Value of the Annuity is: "</span>, <span style="color: #4f97d7;">round</span><span style="color: #bc6ec5;">(</span>FV, 2<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+The Future Value of the Annuity is:  208214.82
+
+</pre>
 </div>
 </div>
 
-<div id="outline-container-orge483075" class="outline-2">
-<h2 id="orge483075"><span class="section-number-2">8</span> Solving for C in FVA</h2>
+<div id="outline-container-org5d891e9" class="outline-2">
+<h2 id="org5d891e9"><span class="section-number-2">8</span> Solving for C in FVA</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 \(C = \frac{FVA(r)}{(1 + r)^n - 1}\)
@@ -771,22 +788,50 @@ You will have \(\frac{300(1 + \frac{0.04}{12})^{30(12)}}{\frac{0.04}{12}} = 298,
 </div>
 </div>
 
-<div id="outline-container-org1eb35f3" class="outline-2">
-<h2 id="org1eb35f3"><span class="section-number-2">9</span> Solving for r in FVA</h2>
+<div id="outline-container-org2388cd5" class="outline-2">
+<h2 id="org2388cd5"><span class="section-number-2">9</span> Solving for r in FVA</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 <code>=IRR()</code> in Excel or optimization. 
 </p>
+
+<p>
+Example in python:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #4f97d7; font-weight: bold;">from</span> scipy <span style="color: #4f97d7; font-weight: bold;">import</span> optimize
+
+<span style="color: #7590db;">pmt_per_period</span> = 300 
+<span style="color: #7590db;">periods</span> = 30 * 12
+<span style="color: #7590db;">FV</span> = 208214.82
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">find_rate</span><span style="color: #4f97d7;">(</span>r<span style="color: #4f97d7;">)</span>:
+<span style="background-color: #292e34;"> </span>   <span style="color: #4f97d7; font-weight: bold;">return</span><span style="color: #4f97d7;">(</span>pmt_per_period * <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7;">pow</span><span style="color: #2d9574;">(</span>1 + r, periods<span style="color: #2d9574;">)</span> - 1<span style="color: #bc6ec5;">)</span> / r - FV<span style="color: #4f97d7;">)</span>
+
+<span style="color: #7590db;">root</span> = optimize.newton<span style="color: #4f97d7;">(</span>find_rate, 0.1<span style="color: #4f97d7;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">## </span><span style="color: #2aa1ae; background-color: #292e34;">0.1 is our initial guess</span>
+<span style="color: #2aa1ae; background-color: #292e34;">## </span><span style="color: #2aa1ae; background-color: #292e34;">note, there are not multiple roots here, but if there were would this root finder list them????</span>
+
+<span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"The monthly rate is: "</span>, <span style="color: #4f97d7;">round</span><span style="color: #bc6ec5;">(</span>root * 100, 2<span style="color: #bc6ec5;">)</span>, <span style="color: #2d9574;">"%"</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"The rate per year (quoted rate) is: "</span>, <span style="color: #4f97d7;">round</span><span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">(</span>root * 12<span style="color: #2d9574;">)</span> * 100, 2<span style="color: #bc6ec5;">)</span>, <span style="color: #2d9574;">"%"</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+The monthly rate is:  0.33 %
+The rate per year (quoted rate) is:  4.0 %
+
+</pre>
 </div>
 </div>
 
-<div id="outline-container-orgdda8c4e" class="outline-2">
-<h2 id="orgdda8c4e"><span class="section-number-2">10</span> Solving for n in FVA</h2>
+<div id="outline-container-org33a176a" class="outline-2">
+<h2 id="org33a176a"><span class="section-number-2">10</span> Solving for n in FVA</h2>
 </div>
 
 
-<div id="outline-container-orgfd07010" class="outline-2">
-<h2 id="orgfd07010"><span class="section-number-2">11</span> A Growing Annuity</h2>
+<div id="outline-container-org90b93ef" class="outline-2">
+<h2 id="org90b93ef"><span class="section-number-2">11</span> A Growing Annuity</h2>
 <div class="outline-text-2" id="text-11">
 <p>
 A <b><b>growing annuity</b></b> is a contract which pays a constantly increasing amount at the end of each period for a set number of periods.
@@ -800,8 +845,8 @@ A <b><b>growing annuity</b></b> is a contract which pays a constantly increasing
 
 
 
-<div id="outline-container-org6f1831f" class="outline-2">
-<h2 id="org6f1831f"><span class="section-number-2">12</span> PV of a Growing Annuity</h2>
+<div id="outline-container-orgd9bf9aa" class="outline-2">
+<h2 id="orgd9bf9aa"><span class="section-number-2">12</span> PV of a Growing Annuity</h2>
 <div class="outline-text-2" id="text-12">
 <p>
 The PV of a growing annuity is:
@@ -825,8 +870,8 @@ Feel free to try the calculation, and check your answer on the calculator on the
 </div>
 
 
-<div id="outline-container-orga5107c7" class="outline-3">
-<h3 id="orga5107c7"><span class="section-number-3">12.1</span> Present Value of a Growing Annuity Calculator</h3>
+<div id="outline-container-org6816edc" class="outline-3">
+<h3 id="org6816edc"><span class="section-number-3">12.1</span> Present Value of a Growing Annuity Calculator</h3>
 <div class="outline-text-3" id="text-12-1">
 
 <script>
@@ -892,8 +937,8 @@ var calculate_4 = function() {
 
 
 
-<div id="outline-container-orgc8dba02" class="outline-2">
-<h2 id="orgc8dba02"><span class="section-number-2">13</span> FV of a Growing Annuity</h2>
+<div id="outline-container-orge8c6df0" class="outline-2">
+<h2 id="orge8c6df0"><span class="section-number-2">13</span> FV of a Growing Annuity</h2>
 <div class="outline-text-2" id="text-13">
 <p>
 The FV of a growing annuity (in the last period \(n\)) is:
@@ -980,8 +1025,8 @@ var calculate_5 = function() {
 </div>
 </div>
 
-<div id="outline-container-org6d2b39e" class="outline-2">
-<h2 id="org6d2b39e"><span class="section-number-2">14</span> Perpetuity</h2>
+<div id="outline-container-org79ad5aa" class="outline-2">
+<h2 id="org79ad5aa"><span class="section-number-2">14</span> Perpetuity</h2>
 <div class="outline-text-2" id="text-14">
 <p>
 A <b><b>perpetuity</b></b> is a contract which pays a fixed amount at the end of each period for an infinite number of periods. Despite having an infinite number of payments, the PV is a finite amount (assuming a positive interest rate).  This is because <a href="https://en.wikipedia.org/wiki/Series_(mathematics)#Convergent_series">later payments become negligible</a>. 
@@ -999,8 +1044,8 @@ The present value of a perpetuity is:
 </div>
 </div>
 
-<div id="outline-container-orgcac7f48" class="outline-2">
-<h2 id="orgcac7f48"><span class="section-number-2">15</span> Applications of the Perpetuity</h2>
+<div id="outline-container-org2ca726c" class="outline-2">
+<h2 id="org2ca726c"><span class="section-number-2">15</span> Applications of the Perpetuity</h2>
 <div class="outline-text-2" id="text-15">
 <p>
 Likely the best known perpetuity is <a href="https://en.wikipedia.org/wiki/Preferred_stock">preferred stock</a>.  Preferred stock pays a fixed dividend, unlike common stock whose dividend changes over time.  
@@ -1016,8 +1061,8 @@ Say ABC company's preferred stock pays a fixed dividend of $7 per year every yea
 </div>
 </div>
 
-<div id="outline-container-orgcbc508a" class="outline-2">
-<h2 id="orgcbc508a"><span class="section-number-2">16</span> A Growing Perpetuity</h2>
+<div id="outline-container-org14c29df" class="outline-2">
+<h2 id="org14c29df"><span class="section-number-2">16</span> A Growing Perpetuity</h2>
 <div class="outline-text-2" id="text-16">
 <p>
 A <b><b>growing perpetuity</b></b> is a contract which pays a constantly increasing amount at the end of each period for an infinite number of periods.  That is, if the first payment is $\\(C\), then the following payments are $\\(C(1+g)\), $\\(C(1+g)^2\), &#x2026; off to infinity.
@@ -1039,8 +1084,8 @@ If \(g \geq r\) then then the value is infinite.
 
 
 
-<div id="outline-container-orged201b2" class="outline-2">
-<h2 id="orged201b2"><span class="section-number-2">17</span> Applications of the Growing Perpetuity</h2>
+<div id="outline-container-org7d2d00c" class="outline-2">
+<h2 id="org7d2d00c"><span class="section-number-2">17</span> Applications of the Growing Perpetuity</h2>
 <div class="outline-text-2" id="text-17">
 <p>
 Perhaps the most famous application is the <a href="https://en.wikipedia.org/wiki/Dividend_discount_model">Gordon Growth Model of stock valuation</a>.  The model assumes a stock's dividends grow at a constant rate. Since stock is infinitely lived, we can find the PV of the dividends (the stock's value), as the PV of a growing perpetuity.
@@ -1059,8 +1104,8 @@ Perhaps the most famous application is the <a href="https://en.wikipedia.org/wik
 
 
 
-<div id="outline-container-org1718c11" class="outline-2">
-<h2 id="org1718c11"><span class="section-number-2">18</span> Irregular Cash Flows</h2>
+<div id="outline-container-orga4b0079" class="outline-2">
+<h2 id="orga4b0079"><span class="section-number-2">18</span> Irregular Cash Flows</h2>
 <div class="outline-text-2" id="text-18">
 <p>
 A contract with <b><b>Irregular cash flows</b></b> is any contract that has a cash flow structure other than those listed above.
@@ -1076,18 +1121,18 @@ A contract with <b><b>Irregular cash flows</b></b> is any contract that has a ca
 
 
 
-<div id="outline-container-org63d197f" class="outline-2">
-<h2 id="org63d197f"><span class="section-number-2">19</span> <a href="https://en.wikipedia.org/wiki/Flesch%25E2%2580%2593Kincaid_readability_tests">Reading Ease Score</a></h2>
+<div id="outline-container-org923925a" class="outline-2">
+<h2 id="org923925a"><span class="section-number-2">19</span> <a href="https://en.wikipedia.org/wiki/Flesch%25E2%2580%2593Kincaid_readability_tests">Reading Ease Score</a></h2>
 <div class="outline-text-2" id="text-19">
 <pre class="example">
 
-"Flesch-Kincaid reading ease score: 97.89 Very easy (5th grade)"
+"Flesch-Kincaid reading ease score: 99.10 Very easy (5th grade)"
 
 </pre>
 
 <pre class="example">
 
-"Flesch-Kincaid grade level score: 3.36"
+"Flesch-Kincaid grade level score: 3.16"
 
 </pre>
 </div>
@@ -1095,7 +1140,7 @@ A contract with <b><b>Irregular cash flows</b></b> is any contract that has a ca
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Matt Brigida, Ph.D.</p>
-<p class="date">Created: 2020-09-18 Fri 12:16</p>
+<p class="date">Created: 2020-09-20 Sun 11:36</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
