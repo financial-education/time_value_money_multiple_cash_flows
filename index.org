@@ -1,6 +1,6 @@
 #+title: Valuing Contracts with Multiple Cash Flows
 #+author: Matt Brigida, Ph.D.
-#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 
 
 In this presentation, we'll look at the valuation of contracts that are comprised of multiple cash flows. We'll cover the following:
